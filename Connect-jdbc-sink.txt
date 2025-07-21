@@ -1,0 +1,68 @@
+## Consumer connect
+
+curl -X POST http://localhost:8083/connectors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "jdbc-sink-customers",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "topics": "dpmugbl1.inventory.customers",
+      "connection.url": "jdbc:postgresql://pg_sub:5432/postgres?user=postgres&password=postgres",
+      "auto.create": "true",
+      "insert.mode": "upsert",
+      "pk.mode": "record_key",
+      "pk.fields": "id",
+      "table.name.format": "inventory.customers",
+      "transforms": "unwrap",
+      "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+      "transforms.unwrap.drop.tombstones": "true"
+    }
+  }'
+
+## Consumer orders
+curl -X POST http://localhost:8083/connectors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "jdbc-sink-orders",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "topics": "dpmugbl1.inventory.orders",
+      "connection.url": "jdbc:postgresql://pg_sub:5432/postgres?user=postgres&password=postgres",
+
+      "auto.create": "true",
+      "insert.mode": "upsert",
+      "pk.mode": "record_key",
+      "pk.fields": "id",
+      "table.name.format": "inventory.orders",
+
+      "transforms": "unwrap",
+      "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+      "transforms.unwrap.drop.tombstones": "true"
+    }
+  }'
+
+
+## Consumer products
+curl -X POST http://localhost:8083/connectors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "jdbc-sink-products",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "topics": "dpmugbl1.inventory.products",
+      "connection.url": "jdbc:postgresql://pg_sub:5432/postgres?user=postgres&password=postgres",
+
+      "auto.create": "true",
+      "insert.mode": "upsert",
+      "pk.mode": "record_key",
+      "pk.fields": "id",
+      "table.name.format": "inventory.products",
+      "fields.whitelist": "name,weight",
+      "transforms": "unwrap",
+      "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+      "transforms.unwrap.drop.tombstones": "true"
+    }
+  }'

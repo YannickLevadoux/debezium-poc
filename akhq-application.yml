@@ -1,0 +1,8 @@
+akhq:
+  connections:
+    local-kafka:
+      properties:
+        bootstrap.servers: "kafka:9092"
+      connect:
+        - name: "connect-cluster"
+          url: "http://connect:8083"
