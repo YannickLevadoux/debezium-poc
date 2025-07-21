@@ -45,7 +45,7 @@ After, you need to init db_sub database by creating a schema named inventory : `
 
 Then you can create the jdbc sink connectors. 
 
-All of them have `table.name.format` setting. It's required to write in the table you want (default in the topic name, <dbname>.<schema>.<table>)
+All of them have `table.name.format` setting. It's required to write in the table you want (default in the topic name, \<dbname\>.\<schema\>.\<table\>)
 
 All of them also have transforms settings. It's required to avoid debezium metadata to be written in the target DB
 
